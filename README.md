@@ -19,6 +19,8 @@ This project is a web application built with React, TypeScript, and Vite that ai
     *   **Food**: Chicken (Hühnerfleisch), Eggs (Eier), Butter, Milk (Milch), Bread (Brot), Meat (Fleisch)
 *   **Detailed Data Table**: A comprehensive table listing the raw price data for all commodities across all years.
 
+![Commodities App Screenshot](./screenshot.png)
+
 ## How it Works
 
 The application calculates a **Price Index** for each commodity, normalized to the year 2000 (Index = 100).
