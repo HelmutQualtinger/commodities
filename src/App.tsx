@@ -36,21 +36,32 @@ const CommodityGoldRatio = () => {
 
   const [selectedCommodities, setSelectedCommodities] = useState(['Lohn', 'Dollar', 'Öl', 'Weizen', 'Silber']);
   const [basis, setBasis] = useState('Gold');
+  const [timeRange, setTimeRange] = useState([years[0], years[years.length - 1]]);
+
+  // Filter years based on range
+  const startIndex = years.indexOf(timeRange[0]);
+  const endIndex = years.indexOf(timeRange[1]);
+  const filteredYears = years.slice(startIndex, endIndex + 1);
 
   // Calculate ratios based on selected basis (inverted: commodity/basis)
   const ratios = {};
   const basisArray = commodities[basis];
   
   Object.keys(commodities).forEach(name => {
+    // Only map the full range first, will slice later for display data
     ratios[name] = years.map((year, i) => commodities[name][i] / basisArray[i]);
   });
 
-  // Create indexed data with base year 2000 = 100
-  const data = years.map((year, i) => {
+  // Create indexed data with base year = start of selected range = 100
+  const data = filteredYears.map((year, i) => {
+    // i is the index within the filtered array
+    // actualIndex is the index in the original full arrays
+    const actualIndex = startIndex + i;
     const point = { year };
+    
     Object.keys(commodities).forEach(name => {
-      const baseValue = ratios[name][0];
-      const currentValue = ratios[name][i];
+      const baseValue = ratios[name][startIndex]; // Normalize to the start of the selection
+      const currentValue = ratios[name][actualIndex];
       point[name] = (currentValue / baseValue) * 100;
     });
     return point;
@@ -92,11 +103,22 @@ const CommodityGoldRatio = () => {
     );
   };
 
+  const handleRangeChange = (index, value) => {
+    const newRange = [...timeRange];
+    newRange[index] = parseInt(value);
+    
+    // Prevent crossing
+    if (index === 0 && newRange[0] > newRange[1]) newRange[0] = newRange[1];
+    if (index === 1 && newRange[1] < newRange[0]) newRange[1] = newRange[0];
+    
+    setTimeRange(newRange);
+  };
+
   return (
     <div className="w-full h-full p-6 bg-gray-50">
       <div className="bg-white rounded-lg shadow-lg p-6">
-        <h2 className="text-2xl font-bold mb-2">Rohstoffpreis-Index (Basis 2000 = 100)</h2>
-        <p className="text-gray-600 mb-4">Wie sich die Kaufkraft der Rohstoffe seit 2000 verändert hat</p>
+        <h2 className="text-2xl font-bold mb-2">Rohstoffpreis-Index (Basis {timeRange[0]} = 100)</h2>
+        <p className="text-gray-600 mb-4">Wie sich die Kaufkraft der Rohstoffe seit {timeRange[0]} verändert hat</p>
         
         <div className="mb-4 flex gap-4 items-center flex-wrap">
           <span className="font-medium">Bezugswert:</span>
@@ -152,6 +174,102 @@ const CommodityGoldRatio = () => {
           </button>
         </div>
 
+        {/* Dual Range Slider */}
+        <div className="mb-8 px-2">
+          <label className="block text-sm font-medium text-gray-700 mb-2">Zeitraum: {timeRange[0]} - {timeRange[1]}</label>
+          <div className="relative h-2 bg-gray-200 rounded-full">
+            {/* Active Range Highlight */}
+            <div 
+              className="absolute h-full bg-blue-500 rounded-full pointer-events-none"
+              style={{
+                left: `${((timeRange[0] - years[0]) / (years[years.length - 1] - years[0])) * 100}%`,
+                right: `${100 - ((timeRange[1] - years[0]) / (years[years.length - 1] - years[0])) * 100}%`
+              }}
+            ></div>
+            
+            {/* Sliders */}
+            <input
+              type="range"
+              min={years[0]}
+              max={years[years.length - 1]}
+              value={timeRange[0]}
+              onChange={(e) => handleRangeChange(0, e.target.value)}
+              className="absolute w-full h-full opacity-0 cursor-pointer pointer-events-auto z-10"
+              style={{ pointerEvents: 'none' }} 
+            />
+            {/* We need a specific CSS hack to make the second slider clickable through the first one where they don't overlap. 
+                However, standard range inputs stack. A common trick is setting pointer-events to none on the input, 
+                and pointer-events to auto on the thumb. Since we can't easily style the thumb in inline styles comfortably across browsers,
+                we will position two inputs.
+                Actually, simpler approach for this constraints: 
+                Just two regular inputs, but we want the visual of a dual slider.
+                Let's try the absolute positioning with z-index manipulation or just two inputs side-by-side if it fails?
+                No, the prompt asked for "einen Schieberegler mit zwei Reitern". 
+                
+                Let's use the 'accent-color' or standard appearance.
+                The inputs need to be effectively transparent but clickable. 
+                But if one is on top of the other, it blocks clicks.
+                
+                Correction: The standard way without libs is tricky. 
+                Let's try a simpler layout: Two range inputs stacked, but using a specific className to allow click-through?
+                No, React 'style' prop is safer.
+                
+                Actually, let's just use two distinct sliders for "Start" and "End" if we can't do a perfect dual one,
+                OR use the standard "two inputs on top of each other" trick where `pointer-events: none` is set on the input
+                and `pointer-events: auto` on `::-webkit-slider-thumb`.
+                Since I can use Tailwind, I can add a custom class or style block.
+            */}
+             <style>{`
+              input[type=range]::-webkit-slider-thumb {
+                pointer-events: auto;
+                appearance: none;
+                height: 16px;
+                width: 16px;
+                background: #3b82f6;
+                border-radius: 50%;
+                cursor: pointer;
+                margin-top: -6px; /* center thumb */
+                position: relative;
+                z-index: 20;
+              }
+              input[type=range]::-moz-range-thumb {
+                pointer-events: auto;
+                height: 16px;
+                width: 16px;
+                background: #3b82f6;
+                border-radius: 50%;
+                cursor: pointer;
+                border: none;
+                z-index: 20;
+              }
+              .dual-range-input {
+                pointer-events: none;
+                position: absolute;
+                height: 0;
+                width: 100%;
+                outline: none;
+                z-index: 10;
+              }
+            `}</style>
+             <input
+              type="range"
+              min={years[0]}
+              max={years[years.length - 1]}
+              value={timeRange[0]}
+              onChange={(e) => handleRangeChange(0, e.target.value)}
+              className="dual-range-input top-1"
+            />
+            <input
+              type="range"
+              min={years[0]}
+              max={years[years.length - 1]}
+              value={timeRange[1]}
+              onChange={(e) => handleRangeChange(1, e.target.value)}
+              className="dual-range-input top-1"
+            />
+          </div>
+        </div>
+
         <div className="mb-6 flex flex-wrap gap-2">
           {Object.keys(commodities).map(name => (
             <button
@@ -173,7 +291,7 @@ const CommodityGoldRatio = () => {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="year" />
             <YAxis 
-              label={{ value: 'Index (2000 = 100)', angle: -90, position: 'insideLeft' }}
+              label={{ value: `Index (${timeRange[0]} = 100)`, angle: -90, position: 'insideLeft' }}
             />
             <Tooltip 
               formatter={(value) => value.toFixed(1)}
@@ -188,7 +306,7 @@ const CommodityGoldRatio = () => {
               strokeDasharray="5 5"
               dot={false}
               data={data.map(d => ({ ...d, baseline: 100 }))}
-              name="Basis (2000)"
+              name={`Basis (${timeRange[0]})`}
             />
             {selectedCommodities.map(name => (
               <Line
@@ -215,7 +333,7 @@ const CommodityGoldRatio = () => {
               <thead>
                 <tr className="bg-gray-100">
                   <th className="border border-gray-300 px-3 py-2 text-left font-semibold">Rohstoff</th>
-                  {years.map(year => (
+                  {filteredYears.map(year => (
                     <th key={year} className="border border-gray-300 px-2 py-2 text-right font-semibold">{year}</th>
                   ))}
                 </tr>
@@ -224,7 +342,7 @@ const CommodityGoldRatio = () => {
                 {Object.keys(commodities).map((name, idx) => (
                   <tr key={name} className={idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
                     <td className="border border-gray-300 px-3 py-2 font-medium">{name}</td>
-                    {commodities[name].map((value, i) => (
+                    {commodities[name].slice(startIndex, endIndex + 1).map((value, i) => (
                       <td key={i} className="border border-gray-300 px-2 py-2 text-right">
                         {value.toLocaleString('de-CH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </td>
