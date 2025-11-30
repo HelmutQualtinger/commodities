@@ -2,6 +2,8 @@
 
 Dieses Projekt ist eine Webanwendung, die mit React, TypeScript und Vite erstellt wurde und verschiedene Rohstoffdaten anzeigt. Es bietet eine einfache und effiziente Möglichkeit, Rohstoffinformationen zu visualisieren und zu interagieren, mit Fokus auf die Kaufkraft von Rohstoffen im Vergleich zu verschiedenen Basen seit dem Jahr 2000.
 
+Sie können [hier die Preisentwicklung](https://preise.bekerh.ddns.net) testen.
+
 ## Funktionen
 
 *   **Interaktives Liniendiagramm**: Visualisiert den Preisindex verschiedener Rohstoffe im Zeitraum 2000-2025.
