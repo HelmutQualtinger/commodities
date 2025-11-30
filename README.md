@@ -1,104 +1,104 @@
-# Commodities Project
+# Commodities Projekt
 
-This project is a web application built with React, TypeScript, and Vite that aims to display various commodities data. It provides a simple and efficient way to visualize and interact with commodity information, specifically focusing on the purchasing power of commodities relative to different bases since the year 2000.
+Dieses Projekt ist eine Webanwendung, die mit React, TypeScript und Vite erstellt wurde und verschiedene Rohstoffdaten anzeigt. Es bietet eine einfache und effiziente Möglichkeit, Rohstoffinformationen zu visualisieren und zu interagieren, mit Fokus auf die Kaufkraft von Rohstoffen im Vergleich zu verschiedenen Basen seit dem Jahr 2000.
 
-## Features
+## Funktionen
 
-*   **Interactive Line Chart**: Visualizes the price index of various commodities over time (2000-2025).
-*   **Dynamic Basis Selection**: Allows users to switch the "base" currency or value against which all other commodities are measured. Options include:
+*   **Interaktives Liniendiagramm**: Visualisiert den Preisindex verschiedener Rohstoffe im Zeitraum 2000-2025.
+*   **Dynamische Basisauswahl**: Ermöglicht es Benutzern, die "Basis"-Währung oder den Wert zu wechseln, gegen den alle anderen Rohstoffe gemessen werden. Die Optionen umfassen:
     *   **Gold**
     *   **Dollar** (USD)
-    *   **CHF** (Swiss Franc)
+    *   **CHF** (Schweizer Franken)
     *   **EUR** (Euro)
-    *   **Lohn** (Wages)
-*   **Customizable Comparisons**: Users can toggle specific commodities on and off to customize the chart view. Supported commodities include:
-    *   **Currencies/Indices**: Gold, Dollar, CHF, EUR, Wages (Lohn)
-    *   **Energy**: Electricity (Strom), Oil (Öl), Brent Crude, Natural Gas (Erdgas)
-    *   **Metals**: Steel (Stahl), Copper (Kupfer), Aluminum (Alu), Silver (Silber)
-    *   **Agriculture**: Wheat (Weizen), Corn (Mais), Soy (Soja), Vegetable Oil (Pflanzenöl), Cocoa (Kakao), Coffee (Kaffee)
-    *   **Food**: Chicken (Hühnerfleisch), Eggs (Eier), Butter, Milk (Milch), Bread (Brot), Meat (Fleisch)
-*   **Detailed Data Table**: A comprehensive table listing the raw price data for all commodities across all years.
+    *   **Lohn** (Löhne)
+*   **Anpassbare Vergleiche**: Benutzer können bestimmte Rohstoffe aktivieren und deaktivieren, um die Diagrammansicht anzupassen. Unterstützte Rohstoffe:
+    *   **Währungen/Indizes**: Gold, Dollar, CHF, EUR, Lohn
+    *   **Energie**: Strom, Öl, Brent-Rohöl, Erdgas
+    *   **Metalle**: Stahl, Kupfer, Aluminium, Silber
+    *   **Landwirtschaft**: Weizen, Mais, Soja, Pflanzenöl, Kakao, Kaffee
+    *   **Lebensmittel**: Hühnerfleisch, Eier, Butter, Milch, Brot, Fleisch
+*   **Detaillierte Datentabelle**: Eine umfassende Tabelle mit den rohen Preisdaten aller Rohstoffe über alle Jahre.
 
 ![Commodities App Screenshot](./screenshot.png)
 
-## How it Works
+## Funktionsweise
 
-The application calculates a **Price Index** for each commodity, normalized to the year 2000 (Index = 100).
+Die Anwendung berechnet einen **Preisindex** für jeden Rohstoff, normalisiert auf das Jahr 2000 (Index = 100).
 
-1.  **Select a Basis**: When you choose a basis (e.g., "Gold"), the application calculates how much of that basis was needed to buy the commodity in each year.
-2.  **Normalization**: This ratio is then normalized so that the value in the year 2000 is always 100.
+1.  **Basis auswählen**: Wenn Sie eine Basis wählen (z. B. "Gold"), berechnet die Anwendung, wie viel dieser Basis benötigt wurde, um den Rohstoff in jedem Jahr zu kaufen.
+2.  **Normalisierung**: Dieses Verhältnis wird dann normalisiert, so dass der Wert im Jahr 2000 immer 100 ist.
 3.  **Interpretation**:
-    *   **Index > 100**: The commodity has become **more expensive** relative to the selected basis (purchasing power of the basis has decreased).
-    *   **Index < 100**: The commodity has become **cheaper** relative to the selected basis (purchasing power of the basis has increased).
+    *   **Index > 100**: Der Rohstoff ist relative zur ausgewählten Basis **teurer geworden** (Kaufkraft der Basis hat abgenommen).
+    *   **Index < 100**: Der Rohstoff ist relative zur ausgewählten Basis **günstiger geworden** (Kaufkraft der Basis hat zugenommen).
 
-## Technology Stack
+## Technologie-Stack
 
-*   **React**: A JavaScript library for building user interfaces.
-*   **TypeScript**: A typed superset of JavaScript that compiles to plain JavaScript.
-*   **Vite**: A next-generation frontend tooling that provides a fast development experience.
-*   **Recharts**: A composable charting library built on React components.
-*   **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
+*   **React**: Eine JavaScript-Bibliothek zum Erstellen von Benutzeroberflächen.
+*   **TypeScript**: Eine typisierte Obermenge von JavaScript, die zu Plain JavaScript kompiliert.
+*   **Vite**: Ein Frontend-Buildtool der nächsten Generation, das eine schnelle Entwicklungserfahrung bietet.
+*   **Recharts**: Eine komposierbare Charting-Bibliothek, die auf React-Komponenten aufgebaut ist.
+*   **Tailwind CSS**: Ein Utility-First CSS Framework für schnelle UI-Entwicklung.
 
-## Getting Started
+## Erste Schritte
 
-To get a local copy up and running, follow these simple steps.
+Befolgen Sie diese einfachen Schritte, um eine lokale Kopie zum Laufen zu bringen.
 
-### Prerequisites
+### Voraussetzungen
 
-Make sure you have Node.js and npm (or yarn) installed on your system.
+Stellen Sie sicher, dass Node.js und npm (oder Yarn) auf Ihrem System installiert sind.
 
-*   Node.js (LTS version recommended)
-*   npm (usually comes with Node.js) or Yarn
+*   Node.js (LTS-Version empfohlen)
+*   npm (normalerweise im Lieferumfang von Node.js enthalten) oder Yarn
 
 ### Installation
 
-1.  Clone the repository:
+1.  Klonen Sie das Repository:
     ```bash
     git clone [repository-url]
     cd commodities
     ```
-2.  Install NPM packages:
+2.  Installieren Sie NPM-Pakete:
     ```bash
     npm install
     ```
-    or
+    oder
     ```bash
     yarn install
     ```
 
-### Running the Project
+### Projekt ausführen
 
-To run the project in development mode:
+Um das Projekt im Entwicklungsmodus zu starten:
 
 ```bash
 npm run dev
 ```
-or
+oder
 ```bash
 yarn dev
 ```
 
-This will start the development server, and you can view the application in your browser at `http://localhost:5173` (or another port if 5173 is busy).
+Dies startet den Entwicklungsserver und Sie können die Anwendung in Ihrem Browser unter `http://localhost:5173` anzeigen (oder einen anderen Port, wenn 5173 nicht verfügbar ist).
 
-### Building for Production
+### Für Produktion bauen
 
-To build the project for production:
+Um das Projekt für die Produktion zu bauen:
 
 ```bash
 npm run build
 ```
-or
+oder
 ```bash
 yarn build
 ```
 
-This will create a `dist` directory with the production-ready static files.
+Dies erstellt ein `dist`-Verzeichnis mit produktionsreifen statischen Dateien.
 
-### Viewing Locally
+### Lokal anzeigen
 
-To view the built application directly from your file system (without a web server):
+So zeigen Sie die gebaute Anwendung direkt von Ihrem Dateisystem an (ohne Webserver):
 
-1.  Run `npm run build` to generate the `dist` folder.
-2.  Open the `dist/index.html` file in your web browser.
+1.  Führen Sie `npm run build` aus, um den `dist`-Ordner zu generieren.
+2.  Öffnen Sie die `dist/index.html`-Datei in Ihrem Webbrowser.
 
-*Note: The project is configured with `base: './'` in `vite.config.js` to support relative paths for this purpose.*
+*Hinweis: Das Projekt ist mit `base: './'` in `vite.config.js` konfiguriert, um relative Pfade für diesen Zweck zu unterstützen.*
