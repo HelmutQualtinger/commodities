@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "80:80"
+      - "90:80"
     container_name: commodities-app
     environment:
       - NODE_ENV=production

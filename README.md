@@ -2,6 +2,8 @@
 
 Dieses Projekt ist eine Webanwendung, die mit React, TypeScript und Vite erstellt wurde und verschiedene Rohstoffdaten anzeigt. Es bietet eine einfache und effiziente Möglichkeit, Rohstoffinformationen zu visualisieren und zu interagieren, mit Fokus auf die Kaufkraft von Rohstoffen im Vergleich zu verschiedenen Basen seit dem Jahr 2000.
 
+Sie können [hier die Preisentwicklung](https://preise.bekerh.ddns.net) testen.
+
 ## Funktionen
 
 *   **Interaktives Liniendiagramm**: Visualisiert den Preisindex verschiedener Rohstoffe im Zeitraum 2000-2025.
@@ -102,3 +104,36 @@ So zeigen Sie die gebaute Anwendung direkt von Ihrem Dateisystem an (ohne Webser
 2.  Öffnen Sie die `dist/index.html`-Datei in Ihrem Webbrowser.
 
 *Hinweis: Das Projekt ist mit `base: './'` in `vite.config.js` konfiguriert, um relative Pfade für diesen Zweck zu unterstützen.*
+
+## Docker
+
+Alternativ können Sie die Anwendung mit Docker und Docker Compose ausführen, ohne Node.js oder npm auf Ihrem System installieren zu müssen.
+
+### Mit Docker
+
+1.  **Docker-Image erstellen**:
+    ```bash
+    docker build -t commodities-app .
+    ```
+
+2.  **Docker-Container ausführen**:
+    ```bash
+    docker run -p 90:80 commodities-app
+    ```
+    Die Anwendung ist jetzt unter `http://localhost:90` verfügbar.
+
+### Mit Docker Compose
+
+Für eine einfachere Verwaltung können Sie Docker Compose verwenden.
+
+1.  **Dienste starten**:
+    ```bash
+    docker compose up -d
+    ```
+    Dieser Befehl erstellt das Image (falls noch nicht vorhanden) und startet den Container im Hintergrund. Die Anwendung ist unter `http://localhost:90` verfügbar.
+
+2.  **Dienste beenden**:
+    ```bash
+    docker compose down
+    ```
+    Dieser Befehl stoppt und entfernt den Container.
