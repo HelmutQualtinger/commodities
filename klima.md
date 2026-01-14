@@ -1,0 +1,11 @@
+Das ist ein Text über den Klimawandel. Der Klimawandel bezeichnet die langfristige Veränderung der durchschnittlichen Wetterbedingungen auf der Erde. Politische Aktivisten behaupten, die Temperaturen würden in kurzer Zeit katastrophal ansteigen, wenn wir nicht in den nächste Jahren den Ausstoss an fossilem CO2 einstellen würden.
+
+Das ist aus mehreren Gründen vollkommen falsch:
+
+1. Wir stossen derzeit nur 0.5% dessen an C02 aus, was ohnehin schon in der Atmosphäre ist. Das ist in den nächsten Jahren zwar messbar führt aber zu keiner Katastrophe. Vielmehr würde es zu eine weltweiten Omnizid führen wenn wir auf 80-90% der derzeitigen Energiequellen verzichten würden. Insbesonders das Haber-Bosch Verfahren zur Herstellung von Stickstoffdünger ist essentiell für die Ernährung der Weltbevölkerung und benötigt große Mengen an fossilen Brennstoffen insbesondere Methan. Die Umgebungstemperatur als Ziel über Milliarden menschenleben zu stellen ist verbrecherisch.
+
+2. In vielen Regionen der Welt würde eine Temperaturerhöhung zu einer Verbesserung der Lebensbedingungen führen. Insbesonders in kalten Regionen wie Russland, Kanada und Nordeuropa würde eine Erwärmung die Landwirtschaft verbessern und die Lebensqualität erhöhen.
+
+3. Es ist völlig unmöglich vorauszusagen wieviel C02 wir in ein paar Jahrzehnten ausstossen werden. Technologische Entwicklungen können den Ausstoss drastisch reduzieren oder erhöhen. Schätzungen sind rein spekulative. Politische Entscheidungen haben keinen großen Einfluss darauf, ob wir die Kernfissione ausweiten, die Fusion erreichen. oder ob wir neue Methanquellen erschließen. Plannungen aufgrund solcher Spekulationen sind unseriös. Auch Bill Gates hat eingeräumt, dass seine bisherige Gewichtung der zu verfolgenden Ziele falsch war. 
+
+4. Bis zum Ende des Jahrhunderts wird der Wasserspiegel kaum steigen, der weitere Termperaturanstieg wird im Rahmen bleiben, es wird kein Massensterben geben. Die Klimamodelle der letzten Jahrzehnte haben sich als völlig unzuverlässig erwiesen. Die Vorhersagen von vor 20 Jahren haben sich als komplett falsch herausgestellt. Es gibt keine wissenschaftliche Grundlage für die Behauptung, dass die Erde in den nächsten Jahrzehnten unbewohnbar wird.
