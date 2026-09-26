@@ -6,7 +6,7 @@ Sie können [hier die Preisentwicklung](https://preise.bekerh.ddns.net) testen.
 
 ## Funktionen
 
-*   **Interaktives Liniendiagramm**: Visualisiert den Preisindex verschiedener Rohstoffe im Zeitraum 2000-2025.
+*   **Interaktives Liniendiagramm**: Visualisiert den Preisindex verschiedener Rohstoffe im Zeitraum 2000-2026.
 *   **Dynamische Basisauswahl**: Ermöglicht es Benutzern, die "Basis"-Währung oder den Wert zu wechseln, gegen den alle anderen Rohstoffe gemessen werden. Die Optionen umfassen:
     *   **Gold**
     *   **Dollar** (USD)

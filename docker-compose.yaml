@@ -9,6 +9,8 @@ services:
     environment:
       - NODE_ENV=production
     restart: unless-stopped
+    ports:
+      - "90:80"
     networks:
       - reverse-proxy
 

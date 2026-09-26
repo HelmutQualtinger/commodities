@@ -21,13 +21,13 @@ This guide helps you work with the Commodities project using Claude Code. It cov
 
 ## Project Overview
 
-**Commodities** is a React-based web application that visualizes commodity price indices from 2000 to 2025. It allows users to:
+**Commodities** is a React-based web application that visualizes commodity price indices from 2000 to 2026. It allows users to:
 
 - Compare commodity prices relative to different bases (Gold, Dollar, CHF, EUR, Wages)
 - View interactive line charts with customizable time ranges
 - Toggle individual commodities to focus on specific trends
 - Analyze raw price data in a detailed table format
-- Understand purchasing power changes over 25 years
+- Understand purchasing power changes over 26 years
 
 **Key Purpose**: The project demonstrates how purchasing power of various bases (currencies, commodities) has changed relative to commodity prices since 2000.
 

@@ -38,8 +38,8 @@ const CommodityGoldRatio = () => {
     Kohle: [28.38, 23.00, 24.19, 29.08, 39.47, 54.64, 64.05, 70.36, 97.67, 60.95, 77.48, 92.88, 92.05, 95.98, 91.17, 46.66, 41.29, 48.80, 62.94, 54.99, 37.16, 66.14, 92.58, 75.58, 74.55, 66.00, 65.00]
   };
 
-  const [selectedCommodities, setSelectedCommodities] = useState(['Lohn', 'Dollar', 'Öl', 'Weizen', 'Silber']);
-  const [basis, setBasis] = useState('Gold');
+  const [selectedCommodities, setSelectedCommodities] = useState(['Gold', 'Dollar', 'CHF', 'EUR', 'Lohn']);
+  const [basis, setBasis] = useState('CHF');
   const [timeRange, setTimeRange] = useState([years[0], years[years.length - 1]]);
 
   // Filter years based on range
@@ -92,20 +92,49 @@ const CommodityGoldRatio = () => {
     Kakao: '#92400e',
     Kaffee: '#78350f',
     Hühnerfleisch: '#fb923c',
-    Eier: '#fcd34d',
-    Butter: '#fde047',
+    Eier: '#f1c01d',
+    Butter: '#93fd47',
     Milch: '#60a5fa',
     Brot: '#d97706',
     Fleisch: '#dc2626',
     Kohle: '#A52A2A'
   };
 
+  const commodityCategories = {
+    'Währungen': ['Gold', 'Dollar', 'CHF', 'EUR', 'Lohn'],
+    'Energie': ['Strom', 'Öl', 'Brent', 'Erdgas', 'Kohle'],
+    'Metalle': ['Stahl', 'Kupfer', 'Alu', 'Silber'],
+    'Landwirtschaft': ['Weizen', 'Mais', 'Soja', 'Pflanzenöl'],
+    'Lebensmittel': ['Kakao', 'Kaffee', 'Hühnerfleisch', 'Eier', 'Butter', 'Milch', 'Brot', 'Fleisch']
+  };
+
   const toggleCommodity = (name) => {
-    setSelectedCommodities(prev => 
-      prev.includes(name) 
+    setSelectedCommodities(prev =>
+      prev.includes(name)
         ? prev.filter(c => c !== name)
         : [...prev, name]
     );
+  };
+
+  const toggleCategory = (categoryName) => {
+    const categoryItems = commodityCategories[categoryName];
+    const allSelected = categoryItems.every(item => selectedCommodities.includes(item));
+
+    if (allSelected) {
+      // Deselect all in category
+      setSelectedCommodities(prev => prev.filter(c => !categoryItems.includes(c)));
+    } else {
+      // Select all in category
+      setSelectedCommodities(prev => {
+        const newSelection = [...prev];
+        categoryItems.forEach(item => {
+          if (!newSelection.includes(item)) {
+            newSelection.push(item);
+          }
+        });
+        return newSelection;
+      });
+    }
   };
 
   const handleRangeChange = (index, value) => {
@@ -275,20 +304,52 @@ const CommodityGoldRatio = () => {
           </div>
         </div>
 
-        <div className="mb-6 flex flex-wrap gap-2">
-          {Object.keys(commodities).map(name => (
-            <button
-              key={name}
-              onClick={() => toggleCommodity(name)}
-              className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
-                selectedCommodities.includes(name)
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
-            >
-              {name}
-            </button>
-          ))}
+        {/* Category Group Selection */}
+        <div className="mb-4">
+          <span className="font-medium text-gray-700 mb-2 block">Kategorien:</span>
+          <div className="flex flex-wrap gap-2">
+            {Object.keys(commodityCategories).map(categoryName => {
+              const categoryItems = commodityCategories[categoryName];
+              const allSelected = categoryItems.every(item => selectedCommodities.includes(item));
+              const someSelected = categoryItems.some(item => selectedCommodities.includes(item)) && !allSelected;
+
+              return (
+                <button
+                  key={categoryName}
+                  onClick={() => toggleCategory(categoryName)}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors border-2 ${
+                    allSelected
+                      ? 'bg-green-500 text-white border-green-600'
+                      : someSelected
+                      ? 'bg-green-100 text-green-700 border-green-400'
+                      : 'bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200'
+                  }`}
+                >
+                  {categoryName}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Individual Commodity Selection */}
+        <div className="mb-6">
+          <span className="font-medium text-gray-700 mb-2 block">Rohstoffe:</span>
+          <div className="flex flex-wrap gap-2">
+            {Object.keys(commodities).map(name => (
+              <button
+                key={name}
+                onClick={() => toggleCommodity(name)}
+                className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
+                  selectedCommodities.includes(name)
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
+              >
+                {name}
+              </button>
+            ))}
+          </div>
         </div>
 
         <ResponsiveContainer width="100%" height={500}>
@@ -332,24 +393,24 @@ const CommodityGoldRatio = () => {
         </div>
 
         <div className="mt-8">
-          <h3 className="text-xl font-bold mb-4">Rohstoffpreise (in {basis === 'Gold' ? 'USD' : 'CHF'})</h3>
+          <h3 className="text-xl font-bold mb-4">Rohstoffpreise-Index (CHF-Basis, {timeRange[0]} = 100)</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-sm border-collapse">
               <thead>
                 <tr className="bg-gray-100">
                   <th className="border border-gray-300 px-3 py-2 text-left font-semibold">Rohstoff</th>
-                  {filteredYears.map(year => (
-                    <th key={year} className="border border-gray-300 px-2 py-2 text-right font-semibold">{year}</th>
+                  {data.map(point => (
+                    <th key={point.year} className="border border-gray-300 px-2 py-2 text-right font-semibold">{point.year}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {Object.keys(commodities).map((name, idx) => (
+                {selectedCommodities.map((name, idx) => (
                   <tr key={name} className={idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
                     <td className="border border-gray-300 px-3 py-2 font-medium">{name}</td>
-                    {commodities[name].slice(startIndex, endIndex + 1).map((value, i) => (
+                    {data.map((point, i) => (
                       <td key={i} className="border border-gray-300 px-2 py-2 text-right">
-                        {value.toLocaleString('de-CH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        {(point[name] || 0).toFixed(1)}
                       </td>
                     ))}
                   </tr>
